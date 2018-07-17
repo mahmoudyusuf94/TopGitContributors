@@ -9,7 +9,7 @@ public class ContributorsListActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment createFragment() {
-        return null;
+        return new ContributorListFragment();
     }
 
 
