@@ -1,4 +1,65 @@
 package com.example.blink22.topgitcontributors;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Contributor {
+
+    private class Author {
+        @SerializedName("login")
+        private String login;
+
+        @SerializedName("avatar_url")
+        private String avatarUrl;
+
+        public String getLogin() {
+            return login;
+        }
+
+        public void setLogin(String login) {
+            this.login = login;
+        }
+
+        public String getAvatarUrl() {
+            return avatarUrl;
+        }
+
+        public void setAvatarUrl(String avatarUrl) {
+            this.avatarUrl = avatarUrl;
+        }
+    }
+
+    @SerializedName("author")
+    private Author author;
+
+    @SerializedName("count")
+    private Integer count;
+
+    public Contributor(Author author, Integer count){
+        this.author = author;
+        this.count = count;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public String getAuthorAvatarUrl(){
+        return author.getAvatarUrl();
+    }
+
+    public String getAuthorName(){
+        return author.getLogin();
+    }
 }
