@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.w3c.dom.Text;
 
 import java.util.List;
@@ -21,9 +23,7 @@ public class ContributorListFragment extends Fragment{
     private List<Contributor> mContributors;
 
     private RecyclerView mRecyclerView;
-    private TextView mNameTextView;
-    private TextView mCountTextView;
-    private ImageView mAvatarImageView;
+
 
     @Nullable
     @Override
@@ -40,6 +40,9 @@ public class ContributorListFragment extends Fragment{
     }
 
     private class ContributorHolder extends RecyclerView.ViewHolder{
+        private TextView mNameTextView;
+        private TextView mCountTextView;
+        private ImageView mAvatarImageView;
 
         public ContributorHolder(View itemView) {
             super(itemView);
@@ -49,7 +52,14 @@ public class ContributorListFragment extends Fragment{
         }
 
         public void bindContributor(Contributor contributor) {
-            // TODO: 7/17/18
+            mNameTextView.setText(contributor.getAuthorName());
+            mCountTextView.setText(contributor.getCount());
+            Picasso.get()
+                    .load(contributor.getAuthorAvatarUrl())
+                    .centerCrop()
+                    .resize(40,40)
+                    .placeholder(R.drawable.place_holder)
+                    .into(mAvatarImageView);
         }
     }
     private class ContributorAdapter extends RecyclerView.Adapter<ContributorHolder>{
