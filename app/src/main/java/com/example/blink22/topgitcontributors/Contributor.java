@@ -1,8 +1,12 @@
 package com.example.blink22.topgitcontributors;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
-public class Contributor {
+public class Contributor implements Comparable<Contributor> {
+
+
 
     private class Author {
 
@@ -69,5 +73,16 @@ public class Contributor {
 
     public String getAuthorName(){
         return author.getLogin();
+    }
+
+    @Override
+    public int compareTo(@NonNull Contributor contributor) {
+        if(this.count > contributor.getCount()){
+            return -1;
+        }
+        else if( this.count < contributor.getCount()){
+            return 1;
+        }
+        return 0;
     }
 }

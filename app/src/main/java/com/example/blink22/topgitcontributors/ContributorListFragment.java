@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -152,12 +154,14 @@ public class ContributorListFragment extends Fragment{
     }
 
     private void updateUi(List<Contributor> contributors){
-        Log.i(TAG, "Response received with : "+ contributors.size() +" contributors");
-        Log.i(TAG, "Updating UI");
-        Log.i(TAG, "Author 1 :" + contributors.get(0).getAuthorName() + " -- count : "+ contributors.get(0).getCount());
-        mAdapter = new ContributorAdapter(contributors);
-        Log.i(TAG,"********  -> " + mRecyclerView.toString());
-        mRecyclerView.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
+        Collections.sort(contributors);
+        if(mAdapter == null){
+            mAdapter = new ContributorAdapter(contributors);
+            mRecyclerView.setAdapter(mAdapter);
+        }
+        else{
+            mAdapter.setContributors(contributors);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 }
