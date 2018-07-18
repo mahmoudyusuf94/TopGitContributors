@@ -11,12 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -29,6 +29,10 @@ public class ContributorListFragment extends Fragment{
     private RecyclerView mRecyclerView;
     private ContributorAdapter mAdapter;
 
+    private LinearLayout mWelcomeScreen;
+    private ProgressBar mWelcomeProgressBar;
+    private TextView mErrorText;
+
     private static final String TAG = "ContributorListFragment";
 
     @Nullable
@@ -39,6 +43,20 @@ public class ContributorListFragment extends Fragment{
 
         mRecyclerView = (RecyclerView) v.findViewById(R.id.contributors_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        mWelcomeScreen = v.findViewById(R.id.welcome_screen);
+        mWelcomeProgressBar = mWelcomeScreen.findViewById(R.id.welcome_progress_bar);
+
+        mErrorText = mWelcomeScreen.findViewById(R.id.netowrk_error_text_view);
+        mErrorText.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                mErrorText.setVisibility(View.GONE);
+                loadContributors();
+            }
+        });
+
+        loadContributors();
 
         return v;
 
@@ -106,21 +124,28 @@ public class ContributorListFragment extends Fragment{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    private void loadContributors() {
         GetDataService service = RetrofitClientInstance.getRetrofitInstance()
                 .create(GetDataService.class);
         Call<List<Contributor>> call = service.getAllContributors();
 
         Log.i(TAG, "Making the network call async");
 
+        mWelcomeProgressBar.setVisibility(View.VISIBLE);
         call.enqueue(new Callback<List<Contributor>>() {
             @Override
             public void onResponse(Call<List<Contributor>> call, Response<List<Contributor>> response) {
                 updateUi(response.body());
+                mWelcomeScreen.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<List<Contributor>> call, Throwable t) {
                 Toast.makeText(getActivity(), "Error, Please Try Again", Toast.LENGTH_LONG).show();
+                mWelcomeProgressBar.setVisibility(View.GONE);
+                mErrorText.setVisibility(View.VISIBLE);
             }
         });
     }

@@ -11,4 +11,47 @@
         android:layout_height="match_parent"
         android:id="@+id/contributors_recycler_view"/>
 
+
+    <LinearLayout
+        android:id="@+id/welcome_screen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal|center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+
+            android:layout_gravity="center_vertical|center_horizontal|center"
+            android:layout_margin="8dp"
+            android:src="@drawable/top_contributor" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/welcome_text"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:visibility="gone"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/welcome_progress_bar"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/network_error"
+            android:visibility="gone"
+            android:id="@+id/netowrk_error_text_view"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/errorColor"/>
+
+    </LinearLayout>
+
+
 </FrameLayout>
