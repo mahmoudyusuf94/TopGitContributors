@@ -6,8 +6,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class Contributor implements Comparable<Contributor> {
 
-
-
     private class Author {
 
         public Author(String login, String avatarUrl){

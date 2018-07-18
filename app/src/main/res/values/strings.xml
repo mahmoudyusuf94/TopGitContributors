@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TopGitContributors</string>
+    <string name="app_name">GiTop</string>
     <string name="welcome_text">Welcome to Ruby Github Repo top Contributors!</string>
     <string name="network_error">Network Error! Click to try again.</string>
     <string name="repo_dialog_title">Enter Repo Details:</string>
