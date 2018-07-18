@@ -5,6 +5,12 @@ import com.google.gson.annotations.SerializedName;
 public class Contributor {
 
     private class Author {
+
+        public Author(String login, String avatarUrl){
+            this.avatarUrl = avatarUrl;
+            this.login = login;
+        }
+
         @SerializedName("login")
         private String login;
 
@@ -31,8 +37,10 @@ public class Contributor {
     @SerializedName("author")
     private Author author;
 
-    @SerializedName("count")
+    @SerializedName("total")
     private Integer count;
+
+
 
     public Contributor(Author author, Integer count){
         this.author = author;

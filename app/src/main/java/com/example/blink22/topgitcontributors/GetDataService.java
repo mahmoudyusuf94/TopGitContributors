@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 
 public interface GetDataService {
 
-    @GET("/stats/contributors")
+    @GET("stats/contributors")
     Call<List<Contributor>> getAllContributors();
 
 }

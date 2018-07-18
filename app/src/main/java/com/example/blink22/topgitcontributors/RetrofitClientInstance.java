@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClientInstance {
 
     private static Retrofit retrofit;
-    private static final String BASE_URL = "https://github.com/ruby/ruby";
+    private static final String BASE_URL = "https://api.github.com/repos/ruby/ruby/";
 
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
