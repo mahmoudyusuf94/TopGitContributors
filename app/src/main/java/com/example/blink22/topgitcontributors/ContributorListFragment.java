@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -42,7 +43,7 @@ public class ContributorListFragment extends Fragment{
         View v = inflater.inflate(R.layout.fragment_contributor_list, container, false);
 
         mRecyclerView = (RecyclerView) v.findViewById(R.id.contributors_recycler_view);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
         mWelcomeScreen = v.findViewById(R.id.welcome_screen);
         mWelcomeProgressBar = mWelcomeScreen.findViewById(R.id.welcome_progress_bar);
@@ -82,7 +83,7 @@ public class ContributorListFragment extends Fragment{
             Picasso.get()
                     .load(contributor.getAuthorAvatarUrl())
                     .centerCrop()
-                    .resize(40,40)
+                    .resize(50,50)
                     .placeholder(R.drawable.place_holder)
                     .into(mAvatarImageView);
         }
