@@ -5,10 +5,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -19,7 +21,6 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,6 +36,8 @@ public class ContributorListFragment extends Fragment{
     private LinearLayout mWelcomeScreen;
     private ProgressBar mWelcomeProgressBar;
     private TextView mErrorText;
+    private EditRepoDialog mEditRepoDialog;
+
 
     private static final String TAG = "ContributorListFragment";
 
@@ -127,6 +130,7 @@ public class ContributorListFragment extends Fragment{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     private void loadContributors() {
@@ -163,5 +167,24 @@ public class ContributorListFragment extends Fragment{
             mAdapter.setContributors(contributors);
             mAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_contributor_list, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+       switch (item.getItemId()){
+           case R.id.menu_item_change_repo:
+               if(mEditRepoDialog == null){
+                   mEditRepoDialog = new EditRepoDialog();
+               }
+               mEditRepoDialog.show(getFragmentManager(), TAG);
+               return true;
+           default:return super.onOptionsItemSelected(item);
+       }
     }
 }

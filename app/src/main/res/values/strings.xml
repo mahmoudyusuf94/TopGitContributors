@@ -2,4 +2,11 @@
     <string name="app_name">TopGitContributors</string>
     <string name="welcome_text">Welcome to Ruby Github Repo top Contributors!</string>
     <string name="network_error">Network Error! Click to try again.</string>
+    <string name="repo_dialog_title">Enter Repo Details:</string>
+    <string name="repo_owner_hint">Repo owner. eg: google</string>
+    <string name="repo_name_hint">Repo name. eg: dagger</string>
+    <string name="OK" />
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="menu_item_change_repo_title">Change Repo</string>
 </resources>
