@@ -19,6 +19,9 @@ public class Contributor implements Comparable<Contributor> {
         @SerializedName("avatar_url")
         private String avatarUrl;
 
+        @SerializedName("html_url")
+        private String profileUrl;
+
         public String getLogin() {
             return login;
         }
@@ -33,6 +36,14 @@ public class Contributor implements Comparable<Contributor> {
 
         public void setAvatarUrl(String avatarUrl) {
             this.avatarUrl = avatarUrl;
+        }
+
+        public void setProfileUrl(String url){
+            this.profileUrl = url;
+        }
+
+        public String getProfileUrl(){
+            return profileUrl;
         }
     }
 
@@ -71,6 +82,10 @@ public class Contributor implements Comparable<Contributor> {
 
     public String getAuthorName(){
         return author.getLogin();
+    }
+
+    public String getAuthorUrl() {
+        return author.getProfileUrl();
     }
 
     @Override

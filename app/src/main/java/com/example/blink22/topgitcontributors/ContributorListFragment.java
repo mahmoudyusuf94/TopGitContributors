@@ -1,10 +1,14 @@
 package com.example.blink22.topgitcontributors;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -87,7 +91,8 @@ public class ContributorListFragment extends Fragment{
 
     }
 
-    private class ContributorHolder extends RecyclerView.ViewHolder{
+    private class ContributorHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        private Contributor mContributor;
         private TextView mNameTextView;
         private TextView mCountTextView;
         private ImageView mAvatarImageView;
@@ -97,9 +102,11 @@ public class ContributorListFragment extends Fragment{
             mNameTextView = (TextView) view.findViewById(R.id.list_item_contributor_name_text_view);
             mCountTextView = (TextView) view.findViewById(R.id.list_item_contributor_count_text_view);
             mAvatarImageView = (ImageView) view.findViewById(R.id.list_item_contributor_image_view);
+            view.setOnClickListener(this);
         }
 
         public void bindContributor(Contributor contributor) {
+            mContributor = contributor;
             mNameTextView.setText(contributor.getAuthorName());
             mCountTextView.setText(Integer.toString(contributor.getCount()));
             Picasso.get()
@@ -108,6 +115,14 @@ public class ContributorListFragment extends Fragment{
                     .resize(50,50)
                     .placeholder(R.drawable.place_holder)
                     .into(mAvatarImageView);
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+        @Override
+        public void onClick(View view) {
+            Intent intent = ContributorPageActivity.newIntent( getActivity(),
+                    Uri.parse(mContributor.getAuthorUrl()));
+            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
         }
     }
     private class ContributorAdapter extends RecyclerView.Adapter<ContributorHolder>{
