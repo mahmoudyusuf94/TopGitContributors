@@ -116,18 +116,23 @@ public class ContributorListFragment extends Fragment{
 
     }
 
-    private class ContributorHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class ContributorHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
         private Contributor mContributor;
-        private TextView mNameTextView;
-        private TextView mCountTextView;
-        private ImageView mAvatarImageView;
+
+        @BindView(R.id.list_item_contributor_name_text_view)
+        TextView mNameTextView;
+
+        @BindView(R.id.list_item_contributor_count_text_view)
+        TextView mCountTextView;
+
+        @BindView(R.id.list_item_contributor_image_view)
+        ImageView mAvatarImageView;
 
 
         public ContributorHolder(View view) {
             super(view);
-            mNameTextView = (TextView) view.findViewById(R.id.list_item_contributor_name_text_view);
-            mCountTextView = (TextView) view.findViewById(R.id.list_item_contributor_count_text_view);
-            mAvatarImageView = (ImageView) view.findViewById(R.id.list_item_contributor_image_view);
+            ButterKnife.bind(this, view);
             view.setOnClickListener(this);
         }
 
