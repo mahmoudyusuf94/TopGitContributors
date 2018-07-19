@@ -31,34 +31,49 @@ import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ContributorListFragment extends Fragment{
 
-
-    private RecyclerView mRecyclerView;
-    private ContributorAdapter mAdapter;
-    private TextView mRepoTextView;
-    private LinearLayout mResultLayout;
-
-    private LinearLayout mWaitingLayout;
-    private TextView mLoadingText;
-    private TextView mNotGoodTextView;
-
     private String mOwner;
     private String mRepo;
-
-    private LinearLayout mWelcomeScreen;
-    private ProgressBar mWelcomeProgressBar;
-    private TextView mErrorText;
+    private ContributorAdapter mAdapter;
     private EditRepoDialog mEditRepoDialog;
 
     private int REQUEST_CHANGE_REPO = 1;
     public String dialogRepo = "ChangeRepoDialog";
-
     private static final String TAG = "ContributorListFragment";
+
+    @BindView(R.id.contributors_recycler_view)
+    RecyclerView mRecyclerView;
+
+    @BindView(R.id.contributor_list_repo_title_text_view)
+    TextView mRepoTextView;
+
+    @BindView(R.id.contributors_linear_layout)
+    LinearLayout mResultLayout;
+
+    @BindView(R.id.loading_layout)
+    LinearLayout mWaitingLayout;
+
+    @BindView(R.id.loading_repo_text_view)
+    TextView mLoadingText;
+
+    @BindView(R.id.loading_not_good_text_view)
+    TextView mNotGoodTextView;
+
+    @BindView(R.id.welcome_screen)
+    LinearLayout mWelcomeScreen;
+
+    @BindView(R.id.welcome_progress_bar)
+    ProgressBar mWelcomeProgressBar;
+
+    @BindView(R.id.netowrk_error_text_view)
+    TextView mErrorText;
 
     @Nullable
     @Override
@@ -66,19 +81,9 @@ public class ContributorListFragment extends Fragment{
 
 
         View v = inflater.inflate(R.layout.fragment_contributor_list, container, false);
+        ButterKnife.bind(this, v);
 
-        mResultLayout = (LinearLayout) v.findViewById(R.id.contributors_linear_layout);
-
-        mRecyclerView = (RecyclerView) v.findViewById(R.id.contributors_recycler_view);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-
-        mRepoTextView = (TextView) v.findViewById(R.id.contributor_list_repo_title_text_view);
-
-        mWelcomeScreen = v.findViewById(R.id.welcome_screen);
-        mWelcomeProgressBar = mWelcomeScreen.findViewById(R.id.welcome_progress_bar);
-        mWaitingLayout = v.findViewById(R.id.loading_layout);
-        mLoadingText = mWaitingLayout.findViewById(R.id.loading_repo_text_view);
-        mNotGoodTextView = mWaitingLayout.findViewById(R.id.loading_not_good_text_view);
 
         mNotGoodTextView.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -89,8 +94,6 @@ public class ContributorListFragment extends Fragment{
             }
         });
 
-
-        mErrorText = mWelcomeScreen.findViewById(R.id.netowrk_error_text_view);
         mErrorText.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -98,6 +101,7 @@ public class ContributorListFragment extends Fragment{
                 loadContributors();
             }
         });
+
         Log.d(TAG, "Almost done with onCreateView....");
 
         if(mAdapter == null){
