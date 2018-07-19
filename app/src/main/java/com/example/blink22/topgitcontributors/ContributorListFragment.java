@@ -98,10 +98,10 @@ public class ContributorListFragment extends Fragment{
                 loadContributors();
             }
         });
-        Log.i(TAG, "Almost done with onCreateView....");
+        Log.d(TAG, "Almost done with onCreateView....");
 
         if(mAdapter == null){
-            Log.i(TAG, "Calling loadContributors from OnCreateView -> adapter is NULL");
+            Log.d(TAG, "Calling loadContributors from OnCreateView -> adapter is NULL");
             loadContributors();
         }else{
             showWait();
@@ -198,19 +198,19 @@ public class ContributorListFragment extends Fragment{
                 .create(GetDataService.class);
         Call<List<Contributor>> call = service.getAllContributors(mOwner, mRepo);
 
-        Log.i(TAG, "Making the network call async ...");
+        Log.d(TAG, "Making the network call async ...");
         showWait();
 
         call.enqueue(new Callback<List<Contributor>>() {
             @Override
             public void onResponse(Call<List<Contributor>> call, Response<List<Contributor>> response) {
-                Log.i(TAG, "Response Received. calling UpdateUi .....");
+                Log.d(TAG, "Response Received. calling UpdateUi .....");
                 updateUi(response.body());
             }
 
             @Override
             public void onFailure(Call<List<Contributor>> call, Throwable t) {
-                Log.i(TAG, "HTTP REQUEST FAILED .... On Failure ... calling  show Error !");
+                Log.d(TAG, "HTTP REQUEST FAILED .... On Failure ... calling  show Error !");
                 showError();
             }
         });
@@ -244,7 +244,6 @@ public class ContributorListFragment extends Fragment{
             showResult();
         }
         else{
-            Log.i(TAG, "Owner is: " + mOwner + ", and Repo is:"+ mRepo);
             showError();
             return;
         }
