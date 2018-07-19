@@ -13,4 +13,5 @@
     <string name="reset_string">Looks bad! Click here to reset defaults.</string>
     <string name="repo_dialog_owner_text_view">Repo Owner:</string>
     <string name="repo_dialog_repo_text_view">Repo Name:</string>
+    <string name="repo_link">https://github.com/%1$s/%2$s</string>
 </resources>

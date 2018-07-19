@@ -235,7 +235,7 @@ public class ContributorListFragment extends Fragment{
 
     private void showResult(){
         mWelcomeScreen.setVisibility(View.GONE);
-        mRepoTextView.setText("https://github.com/"+mOwner+"/"+mRepo);
+        mRepoTextView.setText(getResources().getString(R.string.repo_link,mOwner,mRepo));
         mResultLayout.setVisibility(View.VISIBLE);
     }
 
