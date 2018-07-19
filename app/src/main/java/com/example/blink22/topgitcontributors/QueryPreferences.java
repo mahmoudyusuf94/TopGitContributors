@@ -24,7 +24,7 @@ public class QueryPreferences {
     public static void setStoredRepo(Context context, String owner, String repo){
         PreferenceManager.getDefaultSharedPreferences(context)
                 .edit()
-                .putString(PREF_OWNER, owner)
-                .putString(PREF_REPO, repo).apply();
+                .putString(PREF_OWNER, owner != null ? owner : defaultOwner)
+                .putString(PREF_REPO, repo != null ? repo : defaultRepo).apply();
     }
 }

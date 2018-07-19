@@ -9,4 +9,6 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="menu_item_change_repo_title">Change Repo</string>
+    <string name="loading_string">Fetching http://github.com/%1$s/%2$s</string>
+    <string name="reset_string">Looks bad! Click here to reset defaults.</string>
 </resources>

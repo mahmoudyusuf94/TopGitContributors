@@ -43,6 +43,10 @@ public class ContributorListFragment extends Fragment{
     private TextView mRepoTextView;
     private LinearLayout mResultLayout;
 
+    private LinearLayout mWaitingLayout;
+    private TextView mLoadingText;
+    private TextView mNotGoodTextView;
+
     private String mOwner;
     private String mRepo;
 
@@ -72,6 +76,19 @@ public class ContributorListFragment extends Fragment{
 
         mWelcomeScreen = v.findViewById(R.id.welcome_screen);
         mWelcomeProgressBar = mWelcomeScreen.findViewById(R.id.welcome_progress_bar);
+        mWaitingLayout = v.findViewById(R.id.loading_layout);
+        mLoadingText = mWaitingLayout.findViewById(R.id.loading_repo_text_view);
+        mNotGoodTextView = mWaitingLayout.findViewById(R.id.loading_not_good_text_view);
+
+        mNotGoodTextView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                QueryPreferences.setStoredRepo(getActivity(), null, null);
+                getSavedRepo();
+                loadContributors();
+            }
+        });
+
 
         mErrorText = mWelcomeScreen.findViewById(R.id.netowrk_error_text_view);
         mErrorText.setOnClickListener(new View.OnClickListener(){
@@ -79,7 +96,6 @@ public class ContributorListFragment extends Fragment{
             public void onClick(View view) {
                 mErrorText.setVisibility(View.GONE);
                 loadContributors();
-                showWait();
             }
         });
         Log.i(TAG, "Almost done with onCreateView....");
@@ -87,7 +103,6 @@ public class ContributorListFragment extends Fragment{
         if(mAdapter == null){
             Log.i(TAG, "Calling loadContributors from OnCreateView -> adapter is NULL");
             loadContributors();
-            showWait();
         }else{
             showWait();
             updateUi(mAdapter.mContributors);
@@ -102,6 +117,7 @@ public class ContributorListFragment extends Fragment{
         private TextView mNameTextView;
         private TextView mCountTextView;
         private ImageView mAvatarImageView;
+
 
         public ContributorHolder(View view) {
             super(view);
@@ -168,9 +184,13 @@ public class ContributorListFragment extends Fragment{
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         setRetainInstance(true);
+        getSavedRepo();
+
+    }
+
+    private void getSavedRepo() {
         mRepo = QueryPreferences.getStoredRepo(getActivity());
         mOwner = QueryPreferences.getStoredOwner(getActivity());
-
     }
 
     public void loadContributors() {
@@ -179,6 +199,7 @@ public class ContributorListFragment extends Fragment{
         Call<List<Contributor>> call = service.getAllContributors(mOwner, mRepo);
 
         Log.i(TAG, "Making the network call async ...");
+        showWait();
 
         call.enqueue(new Callback<List<Contributor>>() {
             @Override
@@ -189,7 +210,7 @@ public class ContributorListFragment extends Fragment{
 
             @Override
             public void onFailure(Call<List<Contributor>> call, Throwable t) {
-                Log.i(TAG, "HTTP REQUEST FAILED .... On Failur ... calling  show Error !");
+                Log.i(TAG, "HTTP REQUEST FAILED .... On Failure ... calling  show Error !");
                 showError();
             }
         });
@@ -197,6 +218,7 @@ public class ContributorListFragment extends Fragment{
 
     private void showError() {
         mWelcomeScreen.setVisibility(View.VISIBLE);
+        mWaitingLayout.setVisibility(View.VISIBLE);
         mWelcomeProgressBar.setVisibility(View.GONE);
         mErrorText.setVisibility(View.VISIBLE);
         mResultLayout.setVisibility(View.GONE);
@@ -204,9 +226,11 @@ public class ContributorListFragment extends Fragment{
 
     private void showWait(){
         mWelcomeScreen.setVisibility(View.VISIBLE);
-        mWelcomeProgressBar.setVisibility(View.VISIBLE);
+        mLoadingText.setText(getResources().getString(R.string.loading_string, mOwner, mRepo));
+        mWaitingLayout.setVisibility(View.VISIBLE);
         mErrorText.setVisibility(View.GONE);
         mResultLayout.setVisibility(View.GONE);
+        mWelcomeProgressBar.setVisibility(View.VISIBLE);
     }
 
     private void showResult(){
@@ -221,11 +245,6 @@ public class ContributorListFragment extends Fragment{
         }
         else{
             Log.i(TAG, "Owner is: " + mOwner + ", and Repo is:"+ mRepo);
-            if(contributors == null){
-                Log.i(TAG, "Contributor is NULL !!!!!!!!");
-            }else{
-                Log.i(TAG, "Contributor is EEEEEEEMPTYYYYYYYYYY !!!!!!!!");
-            }
             showError();
             return;
         }
