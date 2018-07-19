@@ -5,11 +5,27 @@
     android:layout_width="match_parent">
 
 
-
-    <android.support.v7.widget.RecyclerView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/contributors_recycler_view"/>
+        android:orientation="vertical"
+        android:id="@+id/contributors_linear_layout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textStyle="italic"
+            android:id="@+id/contributor_list_repo_title_text_view"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/contributors_recycler_view"/>
+    </LinearLayout>
 
 
     <LinearLayout
@@ -46,7 +62,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/network_error"
+            android:text="@string/error_text"
             android:visibility="gone"
             android:id="@+id/netowrk_error_text_view"
             android:layout_gravity="center_horizontal"

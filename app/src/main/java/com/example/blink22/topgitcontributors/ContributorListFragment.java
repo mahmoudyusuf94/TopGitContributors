@@ -40,9 +40,11 @@ public class ContributorListFragment extends Fragment{
 
     private RecyclerView mRecyclerView;
     private ContributorAdapter mAdapter;
+    private TextView mRepoTextView;
+    private LinearLayout mResultLayout;
 
-    private String mOwner = "ruby" ;
-    private String mRepo = "ruby" ;
+    private String mOwner;
+    private String mRepo;
 
     private LinearLayout mWelcomeScreen;
     private ProgressBar mWelcomeProgressBar;
@@ -61,8 +63,12 @@ public class ContributorListFragment extends Fragment{
 
         View v = inflater.inflate(R.layout.fragment_contributor_list, container, false);
 
+        mResultLayout = (LinearLayout) v.findViewById(R.id.contributors_linear_layout);
+
         mRecyclerView = (RecyclerView) v.findViewById(R.id.contributors_recycler_view);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+
+        mRepoTextView = (TextView) v.findViewById(R.id.contributor_list_repo_title_text_view);
 
         mWelcomeScreen = v.findViewById(R.id.welcome_screen);
         mWelcomeProgressBar = mWelcomeScreen.findViewById(R.id.welcome_progress_bar);
@@ -162,6 +168,9 @@ public class ContributorListFragment extends Fragment{
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         setRetainInstance(true);
+        mRepo = QueryPreferences.getStoredRepo(getActivity());
+        mOwner = QueryPreferences.getStoredOwner(getActivity());
+
     }
 
     public void loadContributors() {
@@ -190,20 +199,20 @@ public class ContributorListFragment extends Fragment{
         mWelcomeScreen.setVisibility(View.VISIBLE);
         mWelcomeProgressBar.setVisibility(View.GONE);
         mErrorText.setVisibility(View.VISIBLE);
-        mRecyclerView.setVisibility(View.GONE);
-
+        mResultLayout.setVisibility(View.GONE);
     }
 
     private void showWait(){
         mWelcomeScreen.setVisibility(View.VISIBLE);
         mWelcomeProgressBar.setVisibility(View.VISIBLE);
         mErrorText.setVisibility(View.GONE);
-        mRecyclerView.setVisibility(View.GONE);
+        mResultLayout.setVisibility(View.GONE);
     }
 
     private void showResult(){
         mWelcomeScreen.setVisibility(View.GONE);
-        mRecyclerView.setVisibility(View.VISIBLE);
+        mRepoTextView.setText("https://github.com/"+mOwner+"/"+mRepo);
+        mResultLayout.setVisibility(View.VISIBLE);
     }
 
     private void updateUi(List<Contributor> contributors){
@@ -259,6 +268,7 @@ public class ContributorListFragment extends Fragment{
         if(requestCode == REQUEST_CHANGE_REPO){
             mOwner = data.getStringExtra(EditRepoDialog.EXTRA_OWNER);
             mRepo = data.getStringExtra(EditRepoDialog.EXTRA_REPO);
+            QueryPreferences.setStoredRepo(getActivity(), mOwner, mRepo);
             showWait();
             loadContributors();
         }
