@@ -18,24 +18,45 @@
         android:paddingLeft="4dp"
         android:paddingBottom="4dp"/>
 
-    <EditText
+    <TextView
+        android:id="@+id/repo_dialog_owner_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/repo_owner_hint"
-        android:id="@+id/repo_dialog_repo_owner"
-        android:layout_marginTop="16dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
-        android:layout_marginBottom="4dp"/>
+        android:layout_marginTop="16dp"
+        android:text="@string/repo_dialog_owner_text_view"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <EditText
+        android:id="@+id/repo_dialog_repo_owner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/repo_name_hint"
-        android:id="@+id/repo_dialog_repo_name"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="4dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
-        android:layout_marginBottom="4dp"/>
+        android:layout_marginTop="0dp"
+        android:hint="@string/repo_owner_hint" />
+
+    <TextView
+        android:id="@+id/repo_dialog_repo_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/repo_dialog_repo_text_view"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/repo_dialog_repo_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="0dp"
+        android:hint="@string/repo_name_hint" />
 
 </LinearLayout>
