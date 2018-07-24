@@ -33,6 +33,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -63,8 +64,12 @@ public class ContributorListFragment extends Fragment{
     @BindView(R.id.loading_repo_text_view)
     TextView mLoadingText;
 
-    @BindView(R.id.loading_not_good_text_view)
-    TextView mNotGoodTextView;
+    @OnClick(R.id.loading_not_good_text_view)
+    public void onClickNotGood() {
+        QueryPreferences.setStoredRepo(getActivity(), null, null);
+        getSavedRepo();
+        loadContributors();
+    }
 
     @BindView(R.id.welcome_screen)
     LinearLayout mWelcomeScreen;
@@ -75,32 +80,20 @@ public class ContributorListFragment extends Fragment{
     @BindView(R.id.netowrk_error_text_view)
     TextView mErrorText;
 
+    @OnClick(R.id.netowrk_error_text_view)
+    public void onClickError() {
+        mErrorText.setVisibility(View.GONE);
+        loadContributors();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
 
         View v = inflater.inflate(R.layout.fragment_contributor_list, container, false);
         ButterKnife.bind(this, v);
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-
-        mNotGoodTextView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                QueryPreferences.setStoredRepo(getActivity(), null, null);
-                getSavedRepo();
-                loadContributors();
-            }
-        });
-
-        mErrorText.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                mErrorText.setVisibility(View.GONE);
-                loadContributors();
-            }
-        });
 
         Log.d(TAG, "Almost done with onCreateView....");
 
