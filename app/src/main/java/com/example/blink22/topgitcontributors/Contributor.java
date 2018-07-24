@@ -6,54 +6,11 @@ import com.google.gson.annotations.SerializedName;
 
 public class Contributor implements Comparable<Contributor> {
 
-    private class Author {
-
-        public Author(String login, String avatarUrl){
-            this.avatarUrl = avatarUrl;
-            this.login = login;
-        }
-
-        @SerializedName("login")
-        private String login;
-
-        @SerializedName("avatar_url")
-        private String avatarUrl;
-
-        @SerializedName("html_url")
-        private String profileUrl;
-
-        public String getLogin() {
-            return login;
-        }
-
-        public void setLogin(String login) {
-            this.login = login;
-        }
-
-        public String getAvatarUrl() {
-            return avatarUrl;
-        }
-
-        public void setAvatarUrl(String avatarUrl) {
-            this.avatarUrl = avatarUrl;
-        }
-
-        public void setProfileUrl(String url){
-            this.profileUrl = url;
-        }
-
-        public String getProfileUrl(){
-            return profileUrl;
-        }
-    }
-
     @SerializedName("author")
     private Author author;
 
     @SerializedName("total")
     private Integer count;
-
-
 
     public Contributor(Author author, Integer count){
         this.author = author;
