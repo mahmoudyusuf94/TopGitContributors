@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 
 public class ContributorPageFragment extends Fragment {
     private static final String CONTRIBUTOR_URI = "photo_uri";
+    public static final int MAX_PROGRESS = 100;
 
     private Uri mUri;
     private WebView mWebView;
@@ -46,7 +47,7 @@ public class ContributorPageFragment extends Fragment {
 
         mWebView = v.findViewById(R.id.fragment_contributor_page_web_view);
         mProgressBar = v.findViewById(R.id.fragment_contributor_page_progress_bar);
-        mProgressBar.setMax(100);
+        mProgressBar.setMax(MAX_PROGRESS);
 
         mWebView.setWebViewClient(new WebViewClient(){
             @Override

@@ -109,83 +109,11 @@ public class ContributorListFragment extends Fragment{
             loadContributors();
         }else{
             showWait();
-            updateUi(mAdapter.mContributors);
+            updateUi(mAdapter.getContributors());
         }
 
         return v;
 
-    }
-
-    class ContributorHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-
-        private Contributor mContributor;
-
-        @BindView(R.id.list_item_contributor_name_text_view)
-        TextView mNameTextView;
-
-        @BindView(R.id.list_item_contributor_count_text_view)
-        TextView mCountTextView;
-
-        @BindView(R.id.list_item_contributor_image_view)
-        ImageView mAvatarImageView;
-
-
-        public ContributorHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
-            view.setOnClickListener(this);
-        }
-
-        public void bindContributor(Contributor contributor) {
-            mContributor = contributor;
-            mNameTextView.setText(contributor.getAuthorName());
-            mCountTextView.setText(Integer.toString(contributor.getCount()));
-            Picasso.get()
-                    .load(contributor.getAuthorAvatarUrl())
-                    .centerCrop()
-                    .resize(50,50)
-                    .placeholder(R.drawable.place_holder)
-                    .into(mAvatarImageView);
-        }
-
-        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-        @Override
-        public void onClick(View view) {
-            Intent intent = ContributorPageActivity.newIntent( getActivity(),
-                    Uri.parse(mContributor.getAuthorUrl()));
-            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
-        }
-    }
-    private class ContributorAdapter extends RecyclerView.Adapter<ContributorHolder>{
-
-        private List<Contributor> mContributors;
-
-        public ContributorAdapter(List<Contributor> contributors) {
-            mContributors = contributors;
-        }
-
-        @NonNull
-        @Override
-        public ContributorHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater inflater = LayoutInflater.from(getActivity());
-            View itemView = inflater.inflate(R.layout.list_item_contributor, parent, false);
-            return new ContributorHolder(itemView);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull ContributorHolder holder, int position) {
-            Contributor contributor = mContributors.get(position);
-            holder.bindContributor(contributor);
-        }
-
-        @Override
-        public int getItemCount() {
-            return mContributors.size();
-        }
-
-        public void setContributors(List<Contributor> contributors){
-            mContributors = contributors;
-        }
     }
 
     @Override
