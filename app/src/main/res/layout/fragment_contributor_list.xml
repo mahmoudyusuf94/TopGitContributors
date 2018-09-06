@@ -1,9 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/contributors_recycler_view"
-    >
+    android:layout_width="match_parent">
 
-</android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/contributors_linear_layout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textStyle="italic"
+            android:id="@+id/contributor_list_repo_title_text_view"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/contributors_recycler_view"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/welcome_screen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal|center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_vertical|center_horizontal|center"
+            android:layout_margin="8dp"
+            android:src="@drawable/top_contributor" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/welcome_text"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/loading_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal|center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/loading_repo_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" />
+
+            <ProgressBar
+                android:id="@+id/welcome_progress_bar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:id="@+id/loading_not_good_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/reset_string" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/error_text"
+            android:visibility="gone"
+            android:id="@+id/netowrk_error_text_view"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/errorColor"/>
+
+    </LinearLayout>
+
+
+</FrameLayout>
